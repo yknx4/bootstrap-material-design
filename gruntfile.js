@@ -27,6 +27,23 @@ module.exports = function(grunt) {
             }
         },
 
+        watch: {
+            less: {
+                files: ["less/**/*.less"],
+                tasks: ["default"],
+                options: {
+                    livereload: true
+                }
+            },
+            scss: {
+                files: ["sass/**/*.scss"],
+                tasks: ["scss"],
+                options: {
+                    livereload: true
+                }
+            }
+        },
+
         autoprefixer: {
             options: {
                 browsers: ["last 3 versions", "ie 8", "ie 9", "ie 10", "ie 11"]
@@ -68,6 +85,22 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-autoprefixer");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-contrib-copy");
+    grunt.loadNpmTasks("grunt-contrib-watch");
+
     grunt.registerTask("default", ["less", "autoprefixer", "cssmin", "copy"]);
     grunt.registerTask("scss", ["sass", "autoprefixer", "cssmin", "copy"]);
+
+    grunt.registerTask("dev", "Development task", function (type) {
+        switch (type) {
+            case 'less':
+                grunt.task.run(["less", "autoprefixer", "cssmin", "copy", "watch:less"]);
+                break;
+            case 'scss':
+                grunt.task.run(["scss", "autoprefixer", "cssmin", "copy", "watch:scss"]);
+                break;
+            default:
+                grunt.task.run(["default"]);
+                break;
+        }
+    });
 };
