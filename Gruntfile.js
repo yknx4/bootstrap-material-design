@@ -177,7 +177,7 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.registerTask("default", ["githooks", "less", "autoprefixer", "cssmin", "uglify", "copy"]);
+    grunt.registerTask("default", ["less", "autoprefixer", "cssmin", "uglify", "copy"]);
 
     grunt.registerTask("scss", ["sass", "autoprefixer", "cssmin", "uglify", "copy"]);
 
