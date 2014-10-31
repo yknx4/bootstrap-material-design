@@ -38,7 +38,7 @@
             $((selector) ? selector : this.options.checkboxElements)
             .filter(":notmdproc")
             .data("mdproc", true)
-            .after("<span class=check></span>");
+            .after("<span class=ripple></span><span class=check></span>");
         },
         "radio": function(selector) {
             // Add fake-radio to material radios
@@ -60,7 +60,7 @@
                     $this.attr("placeholder", null).removeClass("floating-label");
                     $this.after("<div class=floating-label>" + placeholder + "</div>");
                 }
-                if ($this.is(":empty") || $this.val() === null || $this.val() == "undefined" || $this.val() === "") {
+                if ($this.val() === null || $this.val() == "undefined" || $this.val() === "") {
                     $this.addClass("empty");
                 }
                 if ($this.parent().next().is("[type=file]")) {
@@ -72,7 +72,7 @@
 
             $(document)
             .on("change", ".checkbox input", function() { $(this).blur(); })
-            .on("keydown", ".form-control", function(e) {
+            .on("keydown paste", ".form-control", function(e) {
                 if(_isChar(e)) {
                     $(this).removeClass("empty");
                 }
@@ -81,6 +81,8 @@
                 var $this = $(this);
                 if($this.val() === "") {
                     $this.addClass("empty");
+                } else {
+                    $this.removeClass("empty");
                 }
             })
             .on("focus", ".form-control-wrapper.fileinput", function() {
